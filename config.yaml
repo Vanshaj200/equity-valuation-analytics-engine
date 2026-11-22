@@ -1,0 +1,31 @@
+# Equity Valuation & Analytics Engine - configuration
+# Edit by hand or from the dashboard's "Save to config.yaml" button
+# (the dashboard rewrites this file and drops these comments).
+
+target: Paytm          # company that gets the DCF
+
+# display name -> Screener export in data/raw/
+companies:
+  Paytm: One_97.xlsx
+  Angel One: Angel_One.xlsx
+  CAMS: Cams_Services.xlsx
+  PB Fintech: PB_Fintech.xlsx
+
+dcf:
+  revenue_growth: [0.16, 0.15, 0.14, 0.12, 0.10]   # years 1-5
+  fcf_margin:     [0.04, 0.07, 0.10, 0.13, 0.15]   # FCF / revenue, years 1-5
+  wacc: 0.135
+  terminal_growth: 0.05
+  include_investments: false   # false: net cash = cash & bank - borrowings
+                               # true : also add balance-sheet investments
+
+sensitivity:                   # grid used by the standalone run; the dashboard centres its grid on the sliders
+  wacc: [0.12, 0.135, 0.15]
+  terminal_growth: [0.04, 0.05, 0.06]
+
+checks:
+  reconcile_tolerance: 0.01        # P&L / balance-sheet reconciliation (fraction)
+  quarterly_tolerance: 0.05        # sum of 4 quarters vs annual
+  share_jump_ratio: 3.0            # share count jump without face-value change
+  mcap_to_sales_standalone: 60     # market cap / sales above this smells like a holding company
+  quarter_break_ratio: 3.0         # latest quarter sales vs trailing-4Q mean
